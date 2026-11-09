@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Tetris</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <!-- Links: Hold -->
+    <aside class="panel">
+      <div class="box">
+        <h2>Halten</h2>
+        <canvas id="hold" width="120" height="120"></canvas>
+      </div>
+      <div class="box keys-box">
+        <h2>Steuerung</h2>
+        <ul class="keys">
+          <li><span>Bewegen</span><span class="k"><kbd>←</kbd><kbd>→</kbd></span></li>
+          <li><span>Soft Drop</span><span class="k"><kbd>↓</kbd></span></li>
+          <li><span>Drehen ⟳</span><span class="k"><kbd>↑</kbd><kbd>X</kbd></span></li>
+          <li><span>Drehen ⟲</span><span class="k"><kbd>Z</kbd></span></li>
+          <li><span>Hard Drop</span><span class="k"><kbd>Leertaste</kbd></span></li>
+          <li><span>Halten</span><span class="k"><kbd>C</kbd><kbd>Shift</kbd></span></li>
+          <li><span>Pause</span><span class="k"><kbd>P</kbd><kbd>Esc</kbd></span></li>
+          <li><span>Neustart</span><span class="k"><kbd>Enter</kbd></span></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Mitte: Spielfeld + Overlay -->
+    <section class="board-wrap">
+      <canvas id="board" width="300" height="600"></canvas>
+      <div id="overlay" class="overlay hidden">
+        <h1 id="overlay-title"></h1>
+        <p id="overlay-text"></p>
+        <ul class="keys" id="overlay-keys">
+          <li><span>Bewegen</span><span class="k"><kbd>←</kbd><kbd>→</kbd></span></li>
+          <li><span>Soft Drop</span><span class="k"><kbd>↓</kbd></span></li>
+          <li><span>Drehen ⟳</span><span class="k"><kbd>↑</kbd><kbd>X</kbd></span></li>
+          <li><span>Drehen ⟲</span><span class="k"><kbd>Z</kbd></span></li>
+          <li><span>Hard Drop</span><span class="k"><kbd>Leertaste</kbd></span></li>
+          <li><span>Halten</span><span class="k"><kbd>C</kbd><kbd>Shift</kbd></span></li>
+          <li><span>Pause</span><span class="k"><kbd>P</kbd><kbd>Esc</kbd></span></li>
+          <li><span>Neustart</span><span class="k"><kbd>Enter</kbd></span></li>
+        </ul>
+        <div class="actions">
+          <button type="button" id="btn-resume" class="btn primary">Fortsetzen</button>
+          <button type="button" id="btn-restart" class="btn">Neustart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rechts: Next + Stats -->
+    <aside class="panel">
+      <div class="box">
+        <h2>Nächste</h2>
+        <canvas id="next" width="120" height="300"></canvas>
+      </div>
+      <div class="box stats">
+        <div class="stat"><span>Punkte</span><strong id="score">0</strong></div>
+        <div class="stat"><span>Level</span><strong id="level">1</strong></div>
+        <div class="stat"><span>Zeilen</span><strong id="lines">0</strong></div>
+        <div class="stat"><span>Highscore</span><strong id="highscore">0</strong></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Touch-Buttons (nur auf kleinen Bildschirmen sichtbar) -->
+  <nav class="touch" aria-label="Touch-Steuerung">
+    <button type="button" data-action="left" aria-label="Links">◀</button>
+    <button type="button" data-action="down" aria-label="Runter">▼</button>
+    <button type="button" data-action="right" aria-label="Rechts">▶</button>
+    <button type="button" data-action="hard" aria-label="Hard Drop">Drop</button>
+    <button type="button" data-action="rotateCCW" aria-label="Gegen den Uhrzeigersinn drehen">⟲</button>
+    <button type="button" data-action="rotateCW" aria-label="Im Uhrzeigersinn drehen">⟳</button>
+    <button type="button" data-action="hold" aria-label="Halten">Halten</button>
+    <button type="button" data-action="pause" aria-label="Pause">Pause</button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
