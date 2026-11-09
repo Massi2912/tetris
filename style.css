@@ -7,13 +7,13 @@
   --neon: #38e8ff;
   --neon2: #c04bff;
 
-  --side-w: 150px;
-  --gap: 16px;
   --controls-h: 0px;
-  /* Spielfeldhöhe: begrenzt durch Fensterhöhe UND -breite, damit nie gescrollt wird */
-  --board-h: min(640px,
-                 calc(100dvh - var(--controls-h) - 32px),
-                 calc((100vw - 2 * var(--side-w) - 2 * var(--gap) - 24px) * 2));
+  /* Spielfeldhöhe: füllt das Fenster (Höhe und Breite), nie scrollen, keine feste Obergrenze.
+     Gesamtbreite ≈ 1.02 × Spielfeldhöhe (Feld + 2 Seitenpanels + Abstände) */
+  --board-h: max(300px, min(calc(100dvh - var(--controls-h) - 32px),
+                            calc((100vw - 24px) / 1.02)));
+  --side-w: calc(var(--board-h) * 0.235);
+  --gap: calc(var(--board-h) * 0.025);
 }
 
 * {
@@ -44,6 +44,8 @@ body {
 }
 
 .game {
+  /* Alle Schriftgrößen/Abstände skalieren mit dem Spielfeld (640px Höhe = 16px) */
+  font-size: calc(var(--board-h) / 40);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -61,19 +63,19 @@ body {
 .box {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 0 18px rgba(56, 232, 255, 0.08);
+  border-radius: 0.75em;
+  padding: 0.625em;
+  box-shadow: 0 0 1.1em rgba(56, 232, 255, 0.08);
 }
 
 .box h2 {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--muted);
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.7em;
 }
 
 .box canvas {
@@ -85,24 +87,24 @@ body {
 .stats {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625em;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.125em;
 }
 
 .stat span {
-  font-size: 0.65rem;
+  font-size: 0.65em;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .stat strong {
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-variant-numeric: tabular-nums;
   color: var(--neon);
   text-shadow: 0 0 10px rgba(56, 232, 255, 0.5);
@@ -131,8 +133,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 16px;
+  gap: 0.625em;
+  padding: 1em;
   text-align: center;
   line-height: 1.4;
   background: rgba(5, 7, 16, 0.82);
@@ -143,7 +145,7 @@ body {
 }
 
 .overlay h1 {
-  font-size: 2rem;
+  font-size: 2em;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--neon);
@@ -151,34 +153,34 @@ body {
 }
 
 .overlay p {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 
 .overlay .keys {
   width: 100%;
-  max-width: 250px;
-  padding: 10px 12px;
-  margin: 4px 0;
-  gap: 7px;
+  max-width: 15.6em;
+  padding: 0.625em 0.75em;
+  margin: 0.25em 0;
+  gap: 0.45em;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
-.overlay .keys li { font-size: 0.75rem; }
+.overlay .keys li { font-size: 0.75em; }
 
 .actions {
   display: flex;
-  gap: 10px;
-  margin-top: 4px;
+  gap: 0.625em;
+  margin-top: 0.25em;
 }
 
 .btn {
   font-family: inherit;
-  font-size: 0.85rem;
-  padding: 9px 18px;
+  font-size: 0.85em;
+  padding: 0.55em 1.1em;
   border-radius: 999px;
   border: 1px solid rgba(56, 232, 255, 0.5);
   background: transparent;
@@ -207,15 +209,15 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.4em;
 }
 
 .keys li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 6px;
-  font-size: 0.68rem;
+  gap: 0.4em;
+  font-size: 0.68em;
   color: var(--muted);
   text-align: left;
 }
@@ -227,14 +229,14 @@ body {
 }
 
 kbd {
-  min-width: 22px;
-  padding: 2px 6px;
+  min-width: 2.2em;
+  padding: 0.2em 0.6em;
   border: 1px solid rgba(56, 232, 255, 0.4);
   border-bottom-width: 2px;
-  border-radius: 5px;
+  border-radius: 0.5em;
   background: #161c3a;
   color: var(--text);
-  font: 600 0.65rem system-ui, sans-serif;
+  font: 600 0.9em system-ui, sans-serif;
   text-align: center;
   line-height: 1.3;
 }
@@ -275,8 +277,12 @@ kbd {
     --side-w: 76px;
     --gap: 8px;
     --controls-h: 120px;
+    --board-h: min(640px,
+                   calc(100dvh - var(--controls-h) - 32px),
+                   calc((100vw - 2 * var(--side-w) - 2 * var(--gap) - 24px) * 2));
   }
 
+  .game { font-size: 16px; }
   .touch { display: grid; }
   .box { padding: 6px; border-radius: 8px; }
   .box h2 { font-size: 0.55rem; margin-bottom: 4px; }
